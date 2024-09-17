@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  ubersystem.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+  ubersystem.api.customer:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+
+  ubersystem.api.driver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+
+  ubersystem.api.notification:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro

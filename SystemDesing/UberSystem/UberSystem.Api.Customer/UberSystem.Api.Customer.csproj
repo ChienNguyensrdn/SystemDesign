@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
+		<UserSecretsId>934b48bd-3e64-48de-adde-b804ff551372</UserSecretsId>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.20" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.20">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UberSystem.Domain\UberSystem.Domain.csproj" />
+		<ProjectReference Include="..\UberSystem.Infrastructure\UberSystem.Infrastructure.csproj" />
+		<ProjectReference Include="..\UberSystem.Service\UberSystem.Service.csproj" />
+		<ProjectReference Include="..\UberSytem.Dto\UberSytem.Dto.csproj" />
+	</ItemGroup>
+
+</Project>

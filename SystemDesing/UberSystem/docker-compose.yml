@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  ubersystem.api:
+    image: ${DOCKER_REGISTRY-}ubersystem
+    build:
+      context: .
+      dockerfile: UberSystem.Api/Dockerfile
+
+  ubersystem.api.customer:
+    image: ${DOCKER_REGISTRY-}ubersystemapi
+    build:
+      context: .
+      dockerfile: UberSystem.Api.Customer/Dockerfile
+
+
+  ubersystem.api.driver:
+    image: ${DOCKER_REGISTRY-}ubersystemapi
+    build:
+      context: .
+      dockerfile: UberSystem.Api.Driver/Dockerfile
+
+
+  ubersystem.api.notification:
+    image: ${DOCKER_REGISTRY-}ubersystemapi
+    build:
+      context: .
+      dockerfile: UberSystem.Api.Notification/Dockerfile
+

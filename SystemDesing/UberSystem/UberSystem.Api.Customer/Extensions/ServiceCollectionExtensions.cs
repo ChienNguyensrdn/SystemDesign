@@ -67,16 +67,16 @@ namespace UberSystem.Api.Customer.Extensions
             // Register database
             var connectionString = configuration.GetConnectionString("Default") ?? string.Empty;
             services.AddDatabase(connectionString);
+            // Application services
+            services.AddApplicationServices();
 
-            // TODO: Fix DbFactory error
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserService, UserService>();
+            // AutoMapper
             services.AddAutoMapper(typeof(MappingProfileExtension));
             
             return services;
         }
 
-        public static IServiceCollection AddDatabase(this IServiceCollection services, string connection)
+        private static IServiceCollection AddDatabase(this IServiceCollection services, string connection)
         {
             services.AddDbContext<UberSystemDbContext>(opt =>
             {
@@ -85,6 +85,16 @@ namespace UberSystem.Api.Customer.Extensions
                     sqlOptions.CommandTimeout(120);
                 });
             });
+            services.AddScoped<DbFactory>();
+            services.AddScoped<Func<UberSystemDbContext>>(provider => () => provider.GetService<UberSystemDbContext>());
+            return services;
+        }
+
+        private static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserService, UserService>();
+
             return services;
         }
     }

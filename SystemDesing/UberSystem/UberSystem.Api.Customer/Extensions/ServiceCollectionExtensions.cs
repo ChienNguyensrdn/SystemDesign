@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using UberSystem.Domain.Interfaces;
+using UberSystem.Domain.Interfaces.Services;
 using UberSystem.Infrastructure;
+using UberSystem.Service;
+using UberSytem.Dto;
 
 namespace UberSystem.Api.Customer.Extensions
 {
@@ -14,18 +18,18 @@ namespace UberSystem.Api.Customer.Extensions
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(opt =>
             {
-                opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                opt.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "UberSystem.Api.Customer",
                     Description = "An ASP.NET Core Web API for managing customers",
                     TermsOfService = new Uri("https://lms-hcmuni.fpt.edu.vn/course/view.php?id=2110"),
-                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    Contact = new OpenApiContact
                     {
                         Name = "Contact",
                         Url = new Uri("https://lms-hcmuni.fpt.edu.vn/course/view.php?id=2110")
                     },
-                    License = new Microsoft.OpenApi.Models.OpenApiLicense
+                    License = new OpenApiLicense
                     {
                         Name = "License",
                         Url = new Uri("https://lms-hcmuni.fpt.edu.vn/course/view.php?id=2110")
@@ -64,7 +68,11 @@ namespace UberSystem.Api.Customer.Extensions
             var connectionString = configuration.GetConnectionString("Default") ?? string.Empty;
             services.AddDatabase(connectionString);
 
-
+            // TODO: Fix DbFactory error
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddAutoMapper(typeof(MappingProfileExtension));
+            
             return services;
         }
 

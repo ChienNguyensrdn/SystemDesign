@@ -108,5 +108,8 @@ namespace UberSystem.Infrastructure
 
         public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
             => await Entities.FirstOrDefaultAsync(predicate, cancellationToken);
+
+        public IQueryable<T> GetAll()
+            => Entities.Where(x => true).AsQueryable();
     }
 }

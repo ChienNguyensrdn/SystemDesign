@@ -16,7 +16,7 @@ public class EmailService : IEmailService
     public async Task SendVerificationEmailAsync(string email, string verificationLink)
     {
         var message = new MimeMessage();
-        message.From.Add(new MailboxAddress("Denticare", "denticare.hcm@outlook.com"));
+        message.From.Add(new MailboxAddress("tự tìm tên đi", "email-không-biết"));
         message.To.Add(new MailboxAddress("", email));
         message.Subject = "Verify your email";
 

@@ -72,7 +72,6 @@ namespace UberSystem.Api.Customer.Extensions
 
             // AutoMapper
             services.AddAutoMapper(typeof(MappingProfileExtension));
-            
             return services;
         }
 

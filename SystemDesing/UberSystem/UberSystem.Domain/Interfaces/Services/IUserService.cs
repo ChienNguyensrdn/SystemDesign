@@ -13,6 +13,8 @@ namespace UberSystem.Domain.Interfaces.Services
         Task<IEnumerable<User>> GetCustomers();
 
         Task<User?> Login(string email, string password);
+        
+        Task<User?> GetByVerificationToken(string token);
     }
 }
 

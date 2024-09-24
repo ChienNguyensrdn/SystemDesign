@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UberSystem.Infrastructure;
 
@@ -11,9 +12,11 @@ using UberSystem.Infrastructure;
 namespace UberSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(UberSystemDbContext))]
-    partial class UberSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240924040511_ChangeColumnName")]
+    partial class ChangeColumnName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

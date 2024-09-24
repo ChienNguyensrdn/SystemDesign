@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using UberSystem.Domain.Entities;
 using UberSystem.Domain.Enums;
 using UberSystem.Domain.Interfaces;
@@ -27,7 +28,7 @@ namespace UberSystem.Service
                 {
                     await _unitOfWork.BeginTransaction();
                     // check duplicate user
-                    var existedUser = await userRepository.GetAsync(u => u.Id == user.Id && u.Email == user.Email);
+                    var existedUser = await userRepository.GetAsync(u => u.Id == user.Id || u.Email == user.Email);
                     if (existedUser is not null) throw new Exception("User already exists.");
 
                     await userRepository.InsertAsync(user);
@@ -99,6 +100,13 @@ namespace UberSystem.Service
 
             var user = users.FirstOrDefault(u => u.Email == email && u.Password == password);
             return user;
+        }
+
+        public async Task<User?> GetByVerificationToken(string token)
+        {
+            var userRepository = _unitOfWork.Repository<User>();
+            return await userRepository.GetAll().AsNoTracking()
+                .FirstOrDefaultAsync(u => u.EmailVerificationToken == token);
         }
 
         public async Task Update(User user)

@@ -20,7 +20,10 @@ namespace UberSytem.Dto
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Helper.GenerateRandomLong()));
 
             CreateMap<User, UserResponseModel>();
-            CreateMap<SignupModel, User>();
+            CreateMap<SignupModel, User>()
+                // Default value: False
+                .ForMember(dest => dest.EmailVerified, opt => opt.MapFrom(src => false))
+                .ForMember(dest => dest.EmailVerificationToken, opt => opt.MapFrom(src => src.EmailVerifiedToken));
         }
     }
 }

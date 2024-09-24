@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using UberSystem.Domain.Entities;
 using UberSystem.Domain.Interfaces;
 using UberSystem.Domain.Interfaces.Services;
 using UberSystem.Infrastructure;
@@ -8,6 +6,8 @@ using UberSystem.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using UberSytem.Dto;
 namespace UberSystem.Api.Authentication.Extensions
 {
@@ -71,6 +71,14 @@ namespace UberSystem.Api.Authentication.Extensions
     	public static IServiceCollection AddServices(this IServiceCollection services)
     	{
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddTransient<SmtpClient>(provider =>
+            {
+	            var smtpClient = new SmtpClient();
+	            smtpClient.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+	            smtpClient.Authenticate("denticare.hcm@outlook.com", "reallystrongpass22@");
+	            return smtpClient;
+            });
             services.AddScoped(typeof(TokenService));
 
             return services;

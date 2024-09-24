@@ -1,4 +1,4 @@
-namespace UberSystem.Api;
+namespace UberSystem.OData;
 
 public class WeatherForecast
 {

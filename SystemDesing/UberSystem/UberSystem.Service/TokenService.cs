@@ -41,4 +41,19 @@ public class TokenService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    /// <summary>
+    /// Extract and return the role from the claims
+    /// </summary>
+    /// <param name="claims"></param>
+    /// <returns></returns>
+    public string GetRoleFromClaims(IList<Claim> claims) 
+    { 
+        var roleClaim = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+        if (roleClaim is not null)
+            return roleClaim.Value;
+
+        return string.Empty;    // function error
+    } 
+
 }

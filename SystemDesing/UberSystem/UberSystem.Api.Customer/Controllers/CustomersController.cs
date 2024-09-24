@@ -25,6 +25,8 @@ namespace UberSystem.Api.Customer.Controllers
         /// </remarks>
         [HttpGet("customers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Domain.Entities.Customer>>> GetCustomers()
         {
             if (_context.Customers == null)
@@ -89,36 +91,7 @@ namespace UberSystem.Api.Customer.Controllers
 
         //    return NoContent();
         //}
-
-        // POST: api/Customers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Domain.Entities.Customer>> PostCustomer(Domain.Entities.Customer customer)
-        //{
-        //    if (_context.Customers == null)
-        //    {
-        //        return Problem("Entity set 'UberSystemDbContext.Customers'  is null.");
-        //    }
-        //    _context.Customers.Add(customer);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (CustomerExists(customer.Id))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
-        //}
-
+        
         // DELETE: api/Customers/5
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> DeleteCustomer(long id)

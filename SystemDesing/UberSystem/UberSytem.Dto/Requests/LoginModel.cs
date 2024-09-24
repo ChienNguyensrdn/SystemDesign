@@ -3,7 +3,7 @@
     public class LoginModel
     {
         /// <summary>
-        /// Username
+        /// Email
         /// </summary>
         public required string Email { get; set; }
 

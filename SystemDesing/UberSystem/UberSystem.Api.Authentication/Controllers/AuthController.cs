@@ -15,12 +15,17 @@ namespace UberSystem.Api.Authentication.Controllers
     public class AuthController : BaseApiController
     {
         private readonly IUserService _userService;
+        private readonly IEmailService _emailService;
         private readonly TokenService _tokenService;
         private readonly IMapper _mapper;
 
-        public AuthController(IUserService userService, TokenService tokenService, IMapper mapper)
+        public AuthController(IUserService userService, 
+            IEmailService emailService,
+            TokenService tokenService, 
+            IMapper mapper)
         {
             _userService = userService;
+            _emailService = emailService;
             _tokenService = tokenService;
             _mapper = mapper;
         }
@@ -29,7 +34,9 @@ namespace UberSystem.Api.Authentication.Controllers
         /// Login to the system
         /// </summary>
         /// <param name="request"></param>
+        /// <remarks>
         /// 
+        /// </remarks>
         [HttpPost("login")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -56,6 +63,41 @@ namespace UberSystem.Api.Authentication.Controllers
         }
 
         /// <summary>
+        /// Verifies the user's email based on the provided token.
+        /// </summary>
+        /// <param name="token">The token used to verify the email.</param>
+        /// <returns>A response message indicating the result of the verification process.</returns>
+        [HttpGet("verify-email")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<string>> VerifyEmail(string token)
+        {
+            if (string.IsNullOrEmpty(token)) return BadRequest(new ApiResponseModel<string>
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Message = "Invalid verified email token!"
+            });
+            if (!ModelState.IsValid) return BadRequest();
+            var user = await _userService.GetByVerificationToken(token);
+            if (user == null)
+                return NotFound(new ApiResponseModel<string>
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Message = "User is not found!"
+                });
+
+            user.EmailVerified = true;
+            await _userService.Update(user);
+
+            return Ok(new ApiResponseModel<string>
+            {
+                Message = "Verified successfully!",
+                StatusCode = HttpStatusCode.OK
+            });
+        }
+        
+        /// <summary>
         /// Sign up into Uber System
         /// </summary>
         /// <param name="request"></param>
@@ -68,6 +110,12 @@ namespace UberSystem.Api.Authentication.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ApiResponseModel<string>>> Signup([FromBody] SignupModel request)
         {
+            if (request.Id <= 0)
+                return BadRequest(new ApiResponseModel<string>
+                {
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Message = "Invalid user's id!"
+                });
             if (!ModelState.IsValid) return BadRequest();
             // Authenticate for role
             if (request.Role != (int)UserRole.CUSTOMER && request.Role != (int)UserRole.DRIVER && request.Role != (int)UserRole.ADMIN)
@@ -77,12 +125,20 @@ namespace UberSystem.Api.Authentication.Controllers
                     Message = "Invalid role's value in the system!"
                 });
             var user = _mapper.Map<User>(request);
+            // Generate verified email token
+            user.EmailVerificationToken = Guid.NewGuid().ToString();
             await _userService.Add(user);
+            // Send verification email
+            var verificationLink = Url.Action(nameof(VerifyEmail), "Auth", 
+                new { token = user.EmailVerificationToken }, Request.Scheme);
+            await _emailService.SendVerificationEmailAsync(request.Email, verificationLink);
+            
             return Ok(new ApiResponseModel<string>
             {
                 StatusCode = HttpStatusCode.OK,
-                Message = "Success",
+                Message = "Success! Please verify your email",
             });
         }
+        
     }
 }

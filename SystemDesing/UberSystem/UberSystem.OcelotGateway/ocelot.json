@@ -1,32 +1,69 @@
 {
-    "GlobalConfiguration": {
-      "BaseUrl": "https://localhost:7276"
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7276"
+  },
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/authentication/",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/uber-system/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7094
+        }
+      ]
     },
-    "Routes": [
-      {
-        "UpstreamPathTemplate": "/gateway/drivers",
-        "UpstreamHttpMethod": [ "GET" ],
-        "DownstreamPathTemplate": "/api/drivers",
-        "DownstreamScheme": "https",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "localhost",
-            "Port": 7221
-          }
-        ]
+    {
+      "UpstreamPathTemplate": "/gateway/register/",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/uber-system/sign-up",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7094
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/customers/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/uber-system/customers/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7182
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       },
-      {
-        "UpstreamPathTemplate": "/gateway/notifications",
-        "UpstreamHttpMethod": [ "GET" ],
-        "DownstreamPathTemplate": "/api/notifications",
-        "DownstreamScheme": "https",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "localhost",
-            "Port": 7158
-          }
-        ]
+      "RouteClaimsRequirement": {
+        "role": "2" // ADMIN
       }
-    ]
-  }
-  
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/customer/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/uber-system/customer/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7182
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "2" // ADMIN
+      }
+    }
+  ]
+}

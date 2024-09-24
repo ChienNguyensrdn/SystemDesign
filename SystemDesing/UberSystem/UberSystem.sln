@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UberSystem.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UberSystem.Service", "UberSystem.Service\UberSystem.Service.csproj", "{13A47FB1-4EFD-4783-BE9D-66E4AEB49076}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UberSystem.Api", "UberSystem.Api\UberSystem.Api.csproj", "{1AB7D960-3D22-444C-81DB-76C99CD14B1A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UberSystem.Tests", "UberSystem.Tests\UberSystem.Tests.csproj", "{2EFA5216-6593-4593-8E39-D8B3A9EDECE0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UberSystem.WebApp", "UberSystem.WebApp\UberSystem.WebApp.csproj", "{802AC6F9-759B-4F9E-B254-B537F206522F}"
@@ -27,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UberSystem.OcelotGateway", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UberSystem.Api.Authentication", "UberSystem.Api.Authentication\UberSystem.Api.Authentication.csproj", "{6B358CA9-8870-414A-853B-3FED4485DFD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UberSytem.Dto", "UberSytem.Dto\UberSytem.Dto.csproj", "{8D2CB809-5844-42D7-96CB-E33AF496478A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UberSytem.Dto", "UberSytem.Dto\UberSytem.Dto.csproj", "{8D2CB809-5844-42D7-96CB-E33AF496478A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UberSystem.OData", "UberSystem.OData\UberSystem.OData.csproj", "{B1E39B36-A496-41A1-93D9-4782BE6E4C3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,6 @@ Global
 		{13A47FB1-4EFD-4783-BE9D-66E4AEB49076}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13A47FB1-4EFD-4783-BE9D-66E4AEB49076}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13A47FB1-4EFD-4783-BE9D-66E4AEB49076}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AB7D960-3D22-444C-81DB-76C99CD14B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AB7D960-3D22-444C-81DB-76C99CD14B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AB7D960-3D22-444C-81DB-76C99CD14B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AB7D960-3D22-444C-81DB-76C99CD14B1A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2EFA5216-6593-4593-8E39-D8B3A9EDECE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2EFA5216-6593-4593-8E39-D8B3A9EDECE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EFA5216-6593-4593-8E39-D8B3A9EDECE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,6 +83,10 @@ Global
 		{8D2CB809-5844-42D7-96CB-E33AF496478A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D2CB809-5844-42D7-96CB-E33AF496478A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D2CB809-5844-42D7-96CB-E33AF496478A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E39B36-A496-41A1-93D9-4782BE6E4C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E39B36-A496-41A1-93D9-4782BE6E4C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E39B36-A496-41A1-93D9-4782BE6E4C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E39B36-A496-41A1-93D9-4782BE6E4C3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
